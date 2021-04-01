@@ -1,0 +1,40 @@
+.console
+	{
+		width: 65vw;;
+		height: 30px;
+		background-color: black;
+		color: yellow;
+        margin: 0;
+        padding: 0;
+	}
+
+.informationsJeu
+    {
+        width: 100%;
+		height: 85vh;
+		background-color: black;
+		color: yellow;
+        margin: 0;
+        padding: 5px;
+    }
+
+body a
+    {
+        text-decoration: none;
+        color: black;
+        margin: 5px;
+    }
+
+    body a:hover{
+        border: 1px solid black;
+        color: yellow;
+        background-color: black;
+    }
+
+#submitButton{
+    color: yellow;
+    background-color: black;
+    height:30px;
+    position: absolute;
+    top: 5;
+}
