@@ -46,11 +46,11 @@ body a
 	color: yellow;
     position: absolute;
     top: 1%;
-    right: 5%;
+    right: 1%;
     width: 20vw;
     height: 30px;
-    margin-left: 5px;
+    margin-left: 10px;
     text-align: center;
-    padding: 1px, 1px, 1px, 1px;
+    padding: 1px;
 
 }
