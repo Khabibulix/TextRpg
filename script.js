@@ -3,6 +3,10 @@ var konsole = document.querySelector(".console");
 var informations = document.querySelector(".informationsJeu");
 var submitBtn = document.getElementById("submitButton");
 
+//Variables
+var actualLocation;
+var caca = false;
+
 //Classes
 class Lieu {
     constructor(nom, direction, description, isPerson) {
@@ -14,10 +18,11 @@ class Lieu {
     goingTo(origine, direction, description) {
         origine = this.nom;
         direction = this.direction;
+        clear();    
         informations.value = description;
-        position.innerText = direction;        
+        position.innerText = direction;
+        actualLocation = this.direction;
     }
-
 }
 
 class Person {
@@ -41,13 +46,15 @@ var escalier = new Lieu("Cage d'Escalier","Chambre Sale","Vous voici dans la cag
 
 //MAIN
 position.innerText = chambreSale.nom;
+actualLocation = chambreSale;
 submitBtn.addEventListener("click", function (prompt) {
     var prompt = konsole.value;
     if (prompt == "effacer"){
         clear();
+        informations.value = "";
     }
     if (prompt == "chier"){
-        chier(); 
+        chier();
     }
     if (prompt == "dormir"){
         dormir(); 
@@ -55,12 +62,16 @@ submitBtn.addEventListener("click", function (prompt) {
     if (prompt == "inspecter"){
         inspecter(); 
     }
+    if (prompt == "localiser"){
+        localiser(); 
+    }
     if (prompt == "sud" && position.textContent == "Chambre Sale") {
         chambreSale.goingTo(chambreSale, escalier, escalier.description);
     }
     if (prompt == "nord" && position.textContent == "Cage d'Escalier") {
         escalier.goingTo(escalier, chambreSale, chambreSale.description);
     }
+    
 });
 
 
@@ -69,7 +80,8 @@ submitBtn.addEventListener("click", function (prompt) {
 function chier() {
     clear();
     informations.value = "Vous vous accroupissez à terre et poussez bruyamment. Votre anus se dilate, vous posez une crotte énorme qui vous satisfait beaucoup. Vous ricanez bêtement.";
-
+    caca = true;
+    actualLocation.description += "\n Il y a une crotte par terre!"
 };
 
 function dormir() {
