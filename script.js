@@ -1,11 +1,10 @@
 var position = document.getElementById("lieuActuel");
 var konsole = document.querySelector(".console");
 var informations = document.querySelector(".informationsJeu");
-var submitBtn = document.getElementById("submitButton");
 
 //Variables
 var actualLocation;
-var caca = false;
+
 
 //Classes
 class Lieu {
@@ -32,6 +31,17 @@ class Person {
     }
 }
 
+class Objet {
+    constructor(nom, description, location){
+        this.nom = nom;
+        this.description = description;
+        this.location = location;
+    }
+}
+
+//Définition des objets
+var boiteAMeuh = new Objet("Boîte à Meuh", "Une jolie boîte à meuh qui imite la vache avec un talent indéniable", chambreSale);
+
 //Définition des personnes
 var player = new Person("Vous","Vous ne pouvez vous empêcher de vous regarder dans le reflet de l'arrière de votre téléphone et force est de constater que les poches sous vos yeux vous font ressembler à un famélique lémurien. Vous ne trouverez sûrement jamais personne pour prendre soin de vous, si vous ne faites aucun effort...");
 
@@ -47,31 +57,32 @@ var escalier = new Lieu("Cage d'Escalier","Chambre Sale","Vous voici dans la cag
 //MAIN
 position.innerText = chambreSale.nom;
 actualLocation = chambreSale;
-submitBtn.addEventListener("click", function (prompt) {
-    var prompt = konsole.value;
-    if (prompt == "effacer"){
-        clear();
-        informations.value = "";
+window.addEventListener("keypress", function (evt){
+    if (charCode = 13){
+        var prompt = konsole.value;
+        if (prompt == "effacer"){
+            clear();
+            informations.value = "";
+        }
+        if (prompt == "chier"){
+            chier();
+        }
+        if (prompt == "dormir"){
+            dormir(); 
+        }
+        if (prompt == "inspecter"){
+            inspecter(); 
+        }
+        if (prompt == "localiser"){
+            localiser(); 
+        }
+        if (prompt == "sud" && position.textContent == "Chambre Sale") {
+            chambreSale.goingTo(chambreSale, escalier, escalier.description);
+        }
+        if (prompt == "nord" && position.textContent == "Cage d'Escalier") {
+            escalier.goingTo(escalier, chambreSale, chambreSale.description);
+        }
     }
-    if (prompt == "chier"){
-        chier();
-    }
-    if (prompt == "dormir"){
-        dormir(); 
-    }
-    if (prompt == "inspecter"){
-        inspecter(); 
-    }
-    if (prompt == "localiser"){
-        localiser(); 
-    }
-    if (prompt == "sud" && position.textContent == "Chambre Sale") {
-        chambreSale.goingTo(chambreSale, escalier, escalier.description);
-    }
-    if (prompt == "nord" && position.textContent == "Cage d'Escalier") {
-        escalier.goingTo(escalier, chambreSale, chambreSale.description);
-    }
-    
 });
 
 
@@ -80,8 +91,6 @@ submitBtn.addEventListener("click", function (prompt) {
 function chier() {
     clear();
     informations.value = "Vous vous accroupissez à terre et poussez bruyamment. Votre anus se dilate, vous posez une crotte énorme qui vous satisfait beaucoup. Vous ricanez bêtement.";
-    caca = true;
-    actualLocation.description += "\n Il y a une crotte par terre!"
 };
 
 function dormir() {
