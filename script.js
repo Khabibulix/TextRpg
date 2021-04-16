@@ -9,21 +9,23 @@ var localiserCompteur = 0;
 
 //Classes
 class Lieu {
-    constructor(nom, direction, description, isPerson, isObject, object) {
+    constructor(nom, direction, description, isPerson, object) {
         this.nom = nom;
         this.direction = direction;
         this.description = description;
         this.isPerson = isPerson;
-        this.isObject = isObject;
         this.object = object;
     }
-    goingTo(origine, direction, description) {
-        origine = this.nom;
+    goingTo(direction, description, objdes) {
         direction = this.direction;
         clear();
-        informations.value = description;
+        if (objdes == " "){
+            informations.value = description;
+        } else {
+            informations.value = description +"\n\n Il y a : "+ objdes;
+        }
         position.innerText = direction;
-        boiteAMeuh.chercherObjets(chambreSale, boiteAMeuh.description);
+        actualLocation = direction;       
     }
 }
 
@@ -40,11 +42,6 @@ class Objet {
         this.description = description;
         this.location = location;
     }
-    chercherObjets(location, description) {
-        this.description = description;
-        this.location = location;
-        location.description += "\n\n Il y a : " + description;
-    }
 }
 
 //Définition des objets
@@ -57,7 +54,7 @@ var player = new Person("Vous", "Vous ne pouvez vous empêcher de vous regarder 
 
 //Définition des lieux
 var chambreSale = new Lieu("Chambre Sale", "Cage d'Escalier", "Vous vous trouvez dans une chambre dégueulasse , au sol jonché de paquets de chips vides et de canettes de bière bon marché. C'est ici que vous habitez, et comme chaque jour depuis bien longtemps vous vous rendez au travail, en traînant les pieds. Une seule ouverture dans la pièce, au sud, une porte en bois décrépie et une poignée se vautrant à moitié. Que voulez-vous faire?",
-    false, true, );
+    false,boiteAMeuh);
 var escalier = new Lieu("Cage d'Escalier", "Chambre Sale", "Vous voici dans la cage d'escalier de votre immeuble, vous êtes au dernier étage, au 3ème. Allez-vous tenter d'éviter votre commère de voisine en partant de suite ou allez-vous tester les limites de votre patience? \nEn regardant, au-delà du palier, à l'ouest, vous constatez une porte de la même couleur de la vôtre quoiqu'un peu plus propre, sur la sonnerie, on peut lire 'Madame Joubert'.",
     false);
 
@@ -89,11 +86,11 @@ window.addEventListener("keypress", function (evt) {
             localiser();            
         }
         if (prompt == "sud" && position.textContent == "Chambre Sale") {
-            chambreSale.goingTo(chambreSale, escalier, escalier.description);
+            chambreSale.goingTo(escalier, escalier.description, " ");
             actualLocation = escalier;
         }
         if (prompt == "nord" && position.textContent == "Cage d'Escalier") {
-            escalier.goingTo(escalier, chambreSale, chambreSale.description);
+            escalier.goingTo(chambreSale, chambreSale.description, boiteAMeuh.description);
             actualLocation = chambreSale;
         }
     }
@@ -104,7 +101,7 @@ window.addEventListener("keypress", function (evt) {
 //Functions
 function localiser() {
     clear();
-    informations.value = "Vous vous trouvez actuellement dans: "+ actualLocation.nom + "\n Il vous est possible d'aller dans : "+actualLocation.direction;
+    informations.value = "Vous vous trouvez actuellement dans: "+ actualLocation.nom + "\n Il vous est possible d'aller dans : "+actualLocation.direction + "\n\n"+ actualLocation.description;
     if(localiserCompteur > 10){
         informations.value += "\n\n Arrêtez d'utiliser cette commande, préférez vos neurones plutôt que l'aide intégrée au jeu!";
     }
